@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Bookmark App
 
-## Getting Started
+A full-stack bookmark management application built using:
 
-First, run the development server:
+- Next.js (App Router)
+- Supabase (Auth + Database)
+- Google OAuth
+- Vercel (Deployment)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Google Login using Supabase Auth
+- Add bookmarks (Title + URL)
+- View bookmarks
+- Secure database with Row Level Security (RLS)
+- Deployed on Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 16
+- Supabase
+- PostgreSQL
+- Google OAuth
+- Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚠️ Problems I Faced & How I Solved Them
 
-## Deploy on Vercel
+### 1️⃣ Google Login Redirect Loop
+**Problem:**  
+After clicking login, it was redirecting back to login page.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Solution:**  
+Added correct Redirect URLs in:
+- Google Cloud Console
+- Supabase Auth Settings
+- Vercel Production URL
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### 2️⃣ 401 Unauthorized Error
+**Problem:**  
+Bookmarks were not being added due to 401 error.
+
+**Solution:**  
+Configured:
+- Supabase API keys correctly
+- Enabled Row Level Security (RLS)
+- Added proper insert/select policies
+
+---
+
+### 3️⃣ Environment Variables Not Working on Vercel
+**Problem:**  
+App worked locally but failed after deployment.
+
+**Solution:**  
+Added the following environment variables in Vercel:
+
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+Then redeployed.
+
+---
+
+### 4️⃣ Data Not Persisting After Refresh
+**Problem:**  
+Bookmarks disappeared after reload.
+
+**Solution:**  
+Fetched bookmarks from Supabase database on page load using useEffect.
+
+---
+
+## 🌐 Live Demo
+
+https://github.com/harshithaksherasagar/smart-bookmark-app
+
+---
+
+## 📂 GitHub Repository
+
+smart-bookmark-app-plum-seven.vercel.app
